@@ -1,0 +1,4 @@
+﻿  Baseballgame.c
+C:\Users\hc07c\source\repos\Game\BaseballGame\Baseballgame.c(8,7): warning C4013: 'srand'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+C:\Users\hc07c\source\repos\Game\BaseballGame\Baseballgame.c(14,14): warning C4013: 'rand'이(가) 정의되지 않았습니다. extern은 int형을 반환하는 것으로 간주합니다.
+  BaseballGame.vcxproj -> C:\Users\hc07c\source\repos\Game\BaseballGame\Debug\BaseballGame.exe
