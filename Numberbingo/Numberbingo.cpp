@@ -49,13 +49,26 @@ int main()
 			printf("\n[게임을 종료합니다]\n");
 			break;
 		}
+		else if (player < 1 || player>25)
+		{
+			printf("\n[1에서 25사이의 값을 입력하세요]\n");
+			continue;
+		}
 		//사용자가 선택한 값을 INT_MAX로 변경.
+		//중복도 검사해야함
+		bool bAcc = true;
 		for (int i = 0; i < 25; i++)
 		{
 			if (player == number[i])
 			{
+				bAcc = false;
 				number[i] = INT_MAX;
+				break;
 			}
+		}
+		if (bAcc) {
+			printf("*******없는 값입니다. 다른 수를 입력하세요**********\n");
+			continue;
 		}
 		//값 변경 후 재출력.
 		for (int i = 0; i < 5; i++)
