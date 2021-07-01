@@ -154,7 +154,121 @@ int main()
 			//AI Hard모드 : 빙고가능 한 줄 중에서 빙고 가능성이 높은 줄을 선택.
 			//현재 빙고줄 완성 가능성이 가장 높은 줄을 선택해서 그 줄 숫자중 하나를 선택.
 			//별이 5개인 줄을 제외 하고 *이 가장 많은 줄을 선택
-			int iLine, iStarCount;
+			int iLine=0, iStarCount=0, iSaveCount=0;
+
+			//가로 라인중 *이 가장 많은 줄을 찾아낸다.
+			for (int i = 0; i < 5; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					iStarCount = 0;
+					if (ainumber[i * 5 + j] == INT_MAX)
+					{
+						iStarCount++;
+					}
+				}
+				//별이 5개 미만이어야 빙고 줄이 아니고 기존에 가장 많던 라인의 별 개수보다 많아야함.
+					//저장된 별 수 교체
+				if (iStarCount < 5 && iSaveCount < iStarCount)
+				{
+					iLine = i;
+					iSaveCount = iStarCount;
+				}
+			}
+			//가로 라인중 가장 별이 많은 라인은 구했음.
+			//이값과 세로 라인줄의 별 개수를 비교
+			for (int i = 0; i < 5; i++)
+			{
+				for (int j = 0; j < 5; j++)
+				{
+					iStarCount = 0;
+					if (ainumber[j * 5 + i] == INT_MAX)
+					{
+						iStarCount++;
+					}
+				}
+				if (iStarCount < 5 && iSaveCount < iStarCount)
+				{
+					iLine = i + 5;
+					iSaveCount = iStarCount;
+				}
+			}
+
+			//L to R 대각선 체크
+			iStarCount = 0;
+			for (int i = 0; i < 5; i += 6)
+			{
+				if (ainumber[i] == INT_MAX)
+				{
+					iStarCount++;
+				}
+			}
+			if (iStarCount < 5 && iSaveCount < iStarCount)
+			{
+				iLine = LN_LT;
+				iSaveCount = iStarCount;
+			}
+
+			//R to L 대각선 체크
+			for (int i = 4; i < 21; i += 4)
+			{
+				if (ainumber[i] == INT_MAX)
+				{
+					iStarCount++;
+				}
+			}
+			if (iStarCount < 5 && iSaveCount < iStarCount)
+			{
+				iLine = LN_RT;
+				iSaveCount = iStarCount;
+			}
+			// 모든 라인을 조사했으면 iline에 가능성이 가장 높은 줄 번호가 저장되었다.
+			//해당 줄 번호의 *이 아닌 숫자 중 하나를 선택하게 된다.
+			if (iLine <= LN_H5)
+			{
+				for (int i = 0; i < 5; i++)
+				{
+					if (ainumber[iLine * 5 + i] != INT_MAX)
+					{
+						iInput = ainumber[iLine * 5 + i];
+						break;
+					}
+				}
+			}
+			else if (iLine <= LN_V5)
+			{
+				for (int i = 0; i < 5; i++)
+				{
+					if (ainumber[i * 5 + (iLine - 5)])
+					{
+						iInput = ainumber[i * 5 + (iLine - 5)];
+						break;
+					}
+				}
+			}
+			else if (iLine == LN_LT)
+			{
+				for (int i = 0; i < 25; i+=6)
+				{
+					if (ainumber[i]!=INT_MAX)
+					{
+						iInput = ainumber[i];
+						break;
+					}
+				}
+			}
+			else if (iLine == LN_RT)
+			{
+				for (int i = 4; i < 21; i+=4)
+				{
+					if (ainumber[i] != INT_MAX)
+					{
+						iInput = ainumber[i];
+						break;
+					}
+				}
+			}
+
 			break;
 		}
 		//AI의 숫자가 선택되었음 플레이어와 AI의 숫자를 *로 바꿔준다.
