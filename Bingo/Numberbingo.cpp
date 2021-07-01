@@ -7,20 +7,20 @@ enum AI_MODE
 	AM_EASY = 1,
 	AM_HARD
 };
-enum LINE_NUMBER
+enum LINE
 {
-	LN_H1,
-	LN_H2,
-	LN_H3,
-	LN_H4,
-	LN_H5,
-	LN_V1,
-	LN_V2,
-	LN_V3,
-	LN_V4,
-	LN_V5,
-	LN_LT,
-	LN_RT
+	H1,
+	H2,
+	H3,
+	H4,
+	H5,
+	V1,
+	V2,
+	V3,
+	V4,
+	V5,
+	LR,
+	RL
 };
 
 int main()
@@ -136,6 +136,12 @@ int main()
 			}
 		}
 		//AI가 선택을 한다. AI가 선택하는 것은 모드에 따라 다름
+		int starcount[12] = {};
+		int max, lineCount, prCount,selectline,emptycount;
+		int candiline[12] = {};
+		int prline[4] = { 2,7,10,11 };
+		int candivalue[5] = {};
+		bool noprbool = true;
 		switch (iAIMode)
 		{
 		case AM_EASY:
@@ -154,7 +160,163 @@ int main()
 			//AI Hard모드 : 빙고가능 한 줄 중에서 빙고 가능성이 높은 줄을 선택.
 			//현재 빙고줄 완성 가능성이 가장 높은 줄을 선택해서 그 줄 숫자중 하나를 선택.
 			//별이 5개인 줄을 제외 하고 *이 가장 많은 줄을 선택
-			int iLine, iStarCount;
+
+			//우선 가장 중앙을 선택.
+			if (ainumber[12] != INT_MAX)
+			{
+				iInput = ainumber[12];
+			}
+			//중앙이 선택이 안되있으면 각 가능한 라인의 별 개수를 계산.
+			int hstars,vstars;
+			for (int i = 0; i < 5; i++)
+			{
+				hstars = vstars = 0;
+				for (int j = 0; j < 5; j++)
+				{
+					if (ainumber[i * 5 + j] == INT_MAX)
+					{
+						hstars++;
+					}
+				}
+				starcount[i] = hstars;
+
+				for (int h = 0; h < 5; h++)
+				{
+					if (ainumber[h * 5 + i] == INT_MAX)
+					{
+						vstars++;
+					}
+				}
+				starcount[i + 5] = vstars;
+			}
+			int stars;
+			stars = 0;
+			for (int i = 0; i < 25; i += 6)
+			{
+				if (ainumber[i] == INT_MAX)
+				{
+					stars++;
+				}
+			}
+			starcount[10] = stars;
+
+			stars = 0;
+			for (int i = 4; i < 21; i += 4)
+			{
+				if (ainumber[i] == INT_MAX)
+				{
+					stars++;
+				}
+			}
+			starcount[11] = stars;//각 라인별 star개수 채우기 끝.
+			//5개면 뽑히지 않게 0으로
+			for (int i = 0; i < 12; i++)
+			{
+				if (starcount[i] == 5) {
+					starcount[i] = 0;
+				}
+			}
+			//가장큰값찾기
+			max = starcount[0];
+			for (int i = 0; i < 12; i++)
+			{
+				if (max < starcount[i])
+				{
+					max = starcount[i];
+				}
+			}//max는 즉 가장 많은 별개수.
+			lineCount = 1;
+			for (int i = 0; i < 12; i++)
+			{
+				if (starcount[i] == max)
+				{
+					candiline[lineCount-1] = i;
+					lineCount++;
+				}
+			}//가장 많은 별을 가진 line의 인덱스가 Candiline의 linecount크기만큼 들어가 있다.
+			//하나의 라인 선택 하는데 만약 거기에 H3,V3,LR,RL이 하나라도 있으면 우선 라인은 앞에 배치후
+			//우선 라인 중에서 선택 아닐시 전체 에서 임의로 하나 뽑음.
+			prCount = 0;
+			for (int i = 0; i < lineCount; i++)
+			{				
+				if (candiline[i] == H3 || candiline[i] == V3 || candiline[i] == LR || candiline[i] == RL)
+				{
+					noprbool = false;
+					for (int j = 0; j < 4; j++)
+					{
+						if (candiline[i] == prline[j])
+						{
+							candiline[prCount] = prline[j];
+							prCount++;
+							continue;
+						}
+					}
+					
+				}
+			}
+			if (noprbool == false)
+			{
+				selectline = candiline[rand() % prCount];
+			}
+			if (noprbool)
+			{
+				selectline = candiline[rand() % lineCount];
+			}
+			//selectline에 쁩을 라인이 들어가 있음. 0~4일 경우 가로축에서 INT_MAX가 아닌 하나
+			//5~9일경우 세로축에서 하나 10일경우 왼오에서 하나 11일경우 오왼에서 하나.
+			if (selectline >= 0 && selectline <= 4)
+			{
+				emptycount = 0;
+				for (int i = 0 ; i < 5; i++)
+				{
+					if (ainumber[selectline * 5 + i] != INT_MAX)
+					{
+						candivalue[emptycount] = ainumber[selectline * 5 + i];
+						emptycount++;
+					}
+				}
+				iInput = candivalue[rand() % emptycount];
+			}
+			else if (selectline >= 5 && selectline <= 9)
+			{
+				emptycount = 0;
+				for (int i = 0; i < 5; i++)
+				{
+					if (ainumber[(selectline-5)+(i*5)] != INT_MAX)
+					{
+						candivalue[emptycount] = ainumber[(selectline - 5) + (i * 5)];
+						emptycount++;
+					}
+				}
+				iInput = candivalue[rand() % emptycount];
+			}
+			else if (selectline == 10)
+			{
+				emptycount = 0;
+				for (int i = 0; i < 30; i+=6)
+				{
+					if (ainumber[(selectline - 10) + i] != INT_MAX)
+					{
+						candivalue[emptycount] = ainumber[(selectline - 10) + i];
+						emptycount++;
+					}
+				}
+				iInput = candivalue[rand() % emptycount];
+			}
+			else
+			{
+				emptycount = 0;
+				for (int i = 4; i < 21; i += 4)
+				{
+					if (ainumber[(selectline - 11) + i] != INT_MAX)
+					{
+						candivalue[emptycount] = ainumber[(selectline - 11) + i];
+						emptycount++;
+					}
+				}
+				iInput = candivalue[rand() % emptycount];
+			}
+
 			break;
 		}
 		//AI의 숫자가 선택되었음 플레이어와 AI의 숫자를 *로 바꿔준다.
