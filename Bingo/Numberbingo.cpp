@@ -451,17 +451,20 @@ int main()
 			bingo++;
 		if (iaistar2 == 5)
 			aibingo++;
-		if (bingo >= 5&& bingo>aibingo)
+		if (bingo >= 5&& aibingo<5)
 		{
 			printf("\n\n============[Player 铰府]================\n\n");
+			break;
 		}
-		else if (aibingo >= 5&& aibingo>bingo)
+		else if (aibingo >= 5&& bingo<5)
 		{
 			printf("\n\n============[AI 铰府]================\n\n");
+			break;
 		}
-		else if (bingo == 5 && aibingo == 5)
+		else if (bingo >= 5 && aibingo >= 5)
 		{
-			printf("\n\n============== 公铰何 ==================\n\n");			
+			printf("\n\n============== 公铰何 ==================\n\n");
+			break;
 		}
 	}
 	return 0;
