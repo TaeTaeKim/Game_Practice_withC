@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Bingo", "Bingo.vcxproj", "{9658B29D-1911-4C52-B989-78777EFE12F9}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Bingosetup", "..\Bingosetup\Bingosetup.vdproj", "{868E242D-D436-49EA-B1F5-FFF34739F70D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,10 @@ Global
 		{9658B29D-1911-4C52-B989-78777EFE12F9}.Release|x64.Build.0 = Release|x64
 		{9658B29D-1911-4C52-B989-78777EFE12F9}.Release|x86.ActiveCfg = Release|Win32
 		{9658B29D-1911-4C52-B989-78777EFE12F9}.Release|x86.Build.0 = Release|Win32
+		{868E242D-D436-49EA-B1F5-FFF34739F70D}.Debug|x64.ActiveCfg = Debug
+		{868E242D-D436-49EA-B1F5-FFF34739F70D}.Debug|x86.ActiveCfg = Debug
+		{868E242D-D436-49EA-B1F5-FFF34739F70D}.Release|x64.ActiveCfg = Release
+		{868E242D-D436-49EA-B1F5-FFF34739F70D}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

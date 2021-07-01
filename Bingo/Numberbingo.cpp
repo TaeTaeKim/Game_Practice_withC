@@ -454,16 +454,14 @@ int main()
 		if (bingo >= 5&& bingo>aibingo)
 		{
 			printf("\n\n============[Player 铰府]================\n\n");
-			break;
 		}
 		else if (aibingo >= 5&& aibingo>bingo)
 		{
 			printf("\n\n============[AI 铰府]================\n\n");
-			break;
 		}
 		else if (bingo == 5 && aibingo == 5)
 		{
-			printf("\n\n============== 公铰何 ==================\\n\n");			
+			printf("\n\n============== 公铰何 ==================\n\n");			
 		}
 	}
 	return 0;
