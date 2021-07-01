@@ -293,7 +293,7 @@ int main()
 			else if (selectline == 10)
 			{
 				emptycount = 0;
-				for (int i = 0; i < 30; i+=6)
+				for (int i = 0; i < 25; i+=6)
 				{
 					if (ainumber[(selectline - 10) + i] != INT_MAX)
 					{
