@@ -5,3 +5,4 @@
 ==빙고게임 다운받기==
 
 HardAImyidea branach로 가셔서 Bingosetup->release 에서 zip파일을 다운받고 압축파일내 .msi를 이용하여 설치하시면 빙고게임을 할 수 있습니다.
+https://github.com/TaeTaeKim/Game_Practice_withC/raw/HardAIMyidea/Bingosetup/Release.zip
